@@ -1,21 +1,144 @@
-<!doctype html>
-<!--[if lt IE 8]><html lang="en" class="ie7"><![endif]-->
-<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
-<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
-<!--[if gt IE 9]><html lang="en"><![endif]-->
-<!--[if !IE]><html lang="en"><![endif]-->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Website Title</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="">
-    <link rel="stylesheet" href="style/style.css">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>422 Marketplace</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
   </head>
-  <body>
-    <h1>Welcome to HTML Boilerplate</h1>
-    <script src="script/main.js" defer="defer"></script>
+
+  <body style="color:#ffffff; background:#19b3b1; ">
+    <div id="container">
+      <div id="main" class="flex-column">
+        <h1>Welcome To 422 MarketPlace</h1>
+        <div id="qr-result" hidden="">
+          <div class="flex-row">
+            <p style="flex: 2">ชื่อ: <span id="name">lay_nori</span></p>
+            <p style="flex: 1">ราคา: <span id="price">5</span>บาท</p>
+          </div>
+            <label for="num">จำนวน</label>
+            <input type="number" min="1" id="num" value='1'>
+          <button
+            onclick="addToBasket(
+              document.getElementById('name').innerText,
+              document.getElementById('price').innerText,
+              document.getElementById('num').value,
+            )"
+            class="little-btn is-green">
+            เพิ่มในตระกร้า
+          </button>
+        </div>
+        <div id="buying-btn-group" class="flex-column">
+          <button id="btn-scan-qr" class="btn is-green">
+            ซื้อของเพิ่ม
+          </button>
+          <button id="btn-submit" class="btn is-red" onclick="payment()">
+            คิดเงิน ~
+          </button>
+        </div>
+      </div>
+
+      <div id="sum" style="display: none">
+        <h1>รายการ</h1>
+        <div id="basket">
+          <div class="basket-detail flex-row">
+            <p class="basket-detail-name">ชื่อ</p>
+            <p class="basket-detail-num">จำนวน</p>
+            <p class="basket-detail-price">ราคา</p>
+          </div>
+          <hr>
+        </div>
+        <p style="padding: 10px; background: #e3a6a1;">
+          จำนวนเงินที่ต้องจ่าย <span id="sum-price">0</span> บาท
+        </p>
+        <button onclick="backToBuy()" class="btn is-green">ย้อนกลับ</button>
+        <button onclick="updateDB()" class="btn is-red">ยืนยัน</button>
+      </div>
+      <canvas hidden="" id="qr-canvas"></canvas>
+    </div>
+
+    <script src="./script/src/qrCodeScanner.js"></script>
+    <script src="./script/src/manageFront.js"></script>
+    <style>
+      input {
+        border-radius: 10px;
+        height: 1.2em;
+      }
+      #container,
+      #main {
+        text-align: center;
+        align-items: center;
+      }
+      #container {
+        width: 100vw;
+      }
+      #qr-result {
+        background-color: #e3a6a1;
+        padding: 20px;
+        width: 300px;
+        height: 100px;
+        text-align: center;
+        border-radius: 10px;
+      }
+      #qr-result.p {
+        margin: 0 !important;
+      }
+      button {
+        color: #ffffff;
+      }
+      .btn {
+        margin: 20px;
+        border: 2px solid;
+        border-radius: 10px;
+        width: 250px;
+        height: 100px;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .little-btn {
+        margin: 10px;
+        border: 1px solid;
+        border-radius: 5px;
+        width: 125px;
+        height: 25px;
+      }
+      #basket {
+        text-align: center;
+      }
+      .basket-detail {
+        font-size: 20px;
+        width: 95vw;
+        margin: 0;
+        align-items: center;
+      }
+      .basket-detail-name {
+        flex: 2;
+        border-right: 1px solid;
+      }
+      .basket-detail-num {
+        flex: 1;
+        border-right: 1px solid;
+      }
+      .basket-detail-price {
+        flex: 1;
+      }
+      .is-green {
+        background-color: #034b61;
+      }
+      .is-red {
+        background-color: #bc5f6a
+      }
+      .flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    </style>
   </body>
 </html>
